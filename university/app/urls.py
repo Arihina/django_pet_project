@@ -12,4 +12,5 @@ urlpatterns = [
     path('add-subjects-mark/', views.add_subject_mark, name='add_subject_mark'),
     path('input-subject-id/', views.input_subject_id, name='input_subject_id'),
     path('upd-subjects-mark/<int:subject_id>/', views.update_subject_mark, name='update_subject_mark'),
+    path('search-personal-info/', views.search_personal_info, name='search_personal_info'),
 ]

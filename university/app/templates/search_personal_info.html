@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'form_styles.css' %}" type="text/css">
+    <title>Поиск личной информации</title>
+    <style>
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th, td {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<h2>Поиск личной информации</h2>
+<div class="form-container">
+    <form method="get" action="{% url 'search_personal_info' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Поиск</button>
+    </form>
+</div>
+<h2>Результаты поиска</h2>
+<table>
+    <tr>
+        <th>Полное имя</th>
+        <th>Пол</th>
+        <th>Дата рождения</th>
+        <th>Телефон</th>
+        <th>Адрес</th>
+    </tr>
+    {% for person in results %}
+    <tr>
+        <td>{{ person.full_name }}</td>
+        <td>{{ person.Gender }}</td>
+        <td>{{ person.Birthday }}</td>
+        <td>{{ person.Phone_number }}</td>
+        <td>{{ person.Address }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">Нет записей, соответствующих вашему запросу.</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

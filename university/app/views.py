@@ -2,8 +2,8 @@ from collections import defaultdict
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PerformanceForm
-from .models import PersonalInfo, Department, TeacherSubject, Group, Subject, Performance
+from .forms import PerformanceForm, SearchForm
+from .models import PersonalInfo, Department, TeacherSubject, Group, Performance
 
 
 def index(request):
@@ -90,3 +90,23 @@ def update_subject_mark(request, subject_id):
         'subject': subject
     }
     return render(request, 'update_subject_mark.html', context)
+
+
+def search_personal_info(request):
+    form = SearchForm(request.GET or None)
+    results = PersonalInfo.objects.all()
+
+    if form.is_valid():
+        full_name = form.cleaned_data.get('full_name')
+        gender = form.cleaned_data.get('gender')
+
+        if full_name:
+            results = results.filter(full_name__icontains=full_name)
+        if gender:
+            results = results.filter(Gender=gender)
+
+    context = {
+        'form': form,
+        'results': results
+    }
+    return render(request, 'search_personal_info.html', context)

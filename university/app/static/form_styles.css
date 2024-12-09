@@ -5,7 +5,6 @@ body {
   font-weight: 100;
   padding-top: 20px;
 }
-
 h1, h2, h3 {
   color: #fff;
   text-align: center;
@@ -20,7 +19,6 @@ h1, h2, h3 {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
-
 .form-container label {
   color: #fff;
   display: block;
@@ -41,7 +39,6 @@ h1, h2, h3 {
   font-size: medium;
   display: block;
 }
-
 .form-container button {
   background-color: #5f2c82;
   color: #fff;
@@ -54,7 +51,6 @@ h1, h2, h3 {
   margin: 10px auto;
   display: block;
 }
-
 .form-container button:hover {
   background-color: #49a09d;
 }
