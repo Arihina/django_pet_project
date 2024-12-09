@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Преподаватели и предметы</title>
+    <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <style>
+        body {background:#5f2c82}
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<h1>Преподаватели и предметы</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Преподаватель</th>
+        <th>Предмет</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for teacher_subject in teacher_subjects %}
+    <tr>
+        <td>{{ teacher_subject.id_teacher.full_name }}</td>  <!-- Имя преподавателя -->
+        <td>{{ teacher_subject.id_subject.name }}</td>      <!-- Название предмета -->
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">Нет данных о преподавателях и предметах.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from django.shortcuts import render
 
-from .models import PersonalInfo, Department
+from .models import PersonalInfo, Department, TeacherSubject
 
 
 def index(request):
@@ -37,6 +37,16 @@ def performance(request):
     students = PersonalInfo.objects.prefetch_related('performance_set').all()
 
     return render(request, 'performance.html', {'students': students})
+
+
+def subjects(request):
+    teacher_subjects = TeacherSubject.objects.select_related('id_teacher', 'id_subject').all()
+
+    return render(request, 'teacher_subject.html', {'teacher_subjects': teacher_subjects})
+
+
+def students(request):
+    pass
 
 
 def put_exam(request):
