@@ -5,13 +5,11 @@ body {
   font-weight: 100;
   padding-top: 20px;
 }
-
 h1, h2 {
   color: #fff;
   text-align: center;
   margin-bottom: 20px;
 }
-
 p {
   color: #fff;
   padding: 5px;
@@ -19,14 +17,11 @@ p {
   font-size: larger;
   text-indent: 20px;
 }
-
-
 .table-container {
   width: 100%;
   text-align: center;
   margin-bottom: 500px;
 }
-
 .table-container table {
   display: table;
   width: 80%;
@@ -35,14 +30,12 @@ p {
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
-
 .table-container th, .table-container td {
   padding: 15px;
   background-color: rgba(255,255,255,0.2);
   color: #fff;
   text-align: center;
 }
-
 .table-container th {
   text-align: left;
 }
