@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кафедры и Группы</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css">
+        <style>
+
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;text-align: center;}
+h3 {color: #fff;text-align: center;margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+<h1>Кафедры и Группы</h1>
+
+{% for department in departments %}
+    <h2>{{ department.Long_name }} ({{ department.Short_name }})</h2>
+    <p>Декан: {{ department.Decan }}</p>
+    <p>Телефон: {{ department.Phone_number }}</p>
+
+    <h3>Группы</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Направление</th>
+                <th>Год</th>
+                <th>Форма</th>
+                <th>Степень</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in department.group_set.all %}
+                <tr>
+                    <td>{{ group.id }}</td>
+                    <td>{{ group.id_direction.Long_name }}</td>
+                    <td>{{ group.Year }}</td>
+                    <td>{{ group.Form }}</td>
+                    <td>{{ group.Degree }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Нет групп для этой кафедры.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+</body>
+</html>

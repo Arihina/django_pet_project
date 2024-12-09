@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from django.shortcuts import render
 
-from .models import PersonalInfo
+from .models import PersonalInfo, Department
 
 
 def index(request):
@@ -28,4 +28,6 @@ def groups(request):
 
 
 def departments(request):
-    pass
+    departments = Department.objects.prefetch_related('group_set').all()
+
+    return render(request, 'departments.html', {'departments': departments})
