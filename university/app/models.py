@@ -123,6 +123,7 @@ class Performance(models.Model):
 
 
 class TeacherSubject(models.Model):
+    id = models.AutoField(primary_key=True)
     id_teacher = models.ForeignKey(Teacher, on_delete=models.PROTECT, db_column='id_teacher')
     id_subject = models.ForeignKey(Subject, on_delete=models.PROTECT, db_column='id_object')
 
