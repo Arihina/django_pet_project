@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Группы и студенты</title>
+    <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <style>
+        body {background:#5f2c82}
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<h1>Группы и студенты</h1>
+
+{% for group in groups %}
+    <h2>{{ group }} - {{ group.id_direction.Long_name }}</h2>  <!-- Название группы и направление -->
+
+    <table>
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Пол</th>
+                <th>Дата рождения</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in group.personalinfo_set.all %}
+                <tr>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.Gender }}</td>
+                    <td>{{ student.Birthday }}</td>
+                    <td>{{ student.Phone_number }}</td>
+                    <td>{{ student.Address }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Нет студентов в этой группе.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+</body>
+</html>

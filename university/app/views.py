@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from django.shortcuts import render
 
-from .models import PersonalInfo, Department, TeacherSubject
+from .models import PersonalInfo, Department, TeacherSubject, Group
 
 
 def index(request):
@@ -46,7 +46,9 @@ def subjects(request):
 
 
 def students(request):
-    pass
+    groups = Group.objects.prefetch_related('personalinfo_set').all()
+
+    return render(request, 'students.html', {'groups': groups})
 
 
 def put_exam(request):
