@@ -76,7 +76,7 @@ class Department(models.Model):
         verbose_name_plural = "Кафедры"
 
     def __str__(self):
-        return self.Long_name
+        return self.Short_name
 
 
 class Group(models.Model):
@@ -91,6 +91,9 @@ class Group(models.Model):
         db_table = 'Группа'
         verbose_name = "Группа"
         verbose_name_plural = "Группы"
+
+    def __str__(self):
+        return f'{self.id_department} {self.Year} ({self.Form} {self.Degree})'
 
 
 class Subject(models.Model):
@@ -109,7 +112,7 @@ class Subject(models.Model):
 class Performance(models.Model):
     id = models.AutoField(primary_key=True)
     id_student = models.ForeignKey(PersonalInfo, on_delete=models.PROTECT, db_column='id_student')
-    id_subject = models.ForeignKey(Subject, on_delete=models.PROTECT, db_column='id_object')
+    id_subject = models.ForeignKey(Subject, on_delete=models.PROTECT, db_column='id_Object')
     Exam = models.IntegerField(null=True, blank=True)
     Zachet = models.CharField(max_length=255, null=True, blank=True)
 
