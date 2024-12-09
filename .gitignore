@@ -17,7 +17,7 @@ db.sqlite3
 
 
 media/
-.env
+university/university/.env
 .venv/
 venv/
 env/
