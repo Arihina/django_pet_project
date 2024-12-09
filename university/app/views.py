@@ -28,6 +28,20 @@ def groups(request):
 
 
 def departments(request):
-    departments = Department.objects.prefetch_related('group_set').all()
+    all_departments = Department.objects.prefetch_related('group_set').all()
 
-    return render(request, 'departments.html', {'departments': departments})
+    return render(request, 'departments.html', {'departments': all_departments})
+
+
+def performance(request):
+    students = PersonalInfo.objects.prefetch_related('performance_set').all()
+
+    return render(request, 'performance.html', {'students': students})
+
+
+def put_exam(request):
+    pass
+
+
+def put_credit(request):
+    pass

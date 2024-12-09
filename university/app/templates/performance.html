@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <title>Успеваемость студентов</title>
+    <style>
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;text-align: center;}
+h3 {color: #fff;text-align: center;margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+<h1>Успеваемость студентов</h1>
+
+{% for student in students %}
+    <h2>{{ student.full_name }}</h2>
+    <p>Пол: {{ student.Gender }}</p>
+    <p>Дата рождения: {{ student.Birthday }}</p>
+    <p>Телефон: {{ student.Phone_number }}</p>
+    <p>Адрес: {{ student.Address }}</p>
+
+    <h3>Успеваемость</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Предмет</th>
+                <th>Экзамен</th>
+                <th>Зачет</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for performance in student.performance_set.all %}
+                <tr>
+                    <td>{{ performance.id_subject }}</td>
+                    <td>{{ performance.Exam }}</td>
+                    <td>{{ performance.Zachet }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Нет записей об успеваемости для этого студента.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+</body>
+</html>
