@@ -110,3 +110,16 @@ def search_personal_info(request):
         'results': results
     }
     return render(request, 'search_personal_info.html', context)
+
+
+def entrance(request):
+    if request.method == 'POST':
+        password = request.POST.get('password')
+
+        if password == 'admin':
+            return redirect('teachers')
+        else:
+            error_message = "Неверный пароль"
+            return render(request, 'password_check.html', {'error_message': error_message})
+
+    return render(request, 'entrance.html')
