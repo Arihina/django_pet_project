@@ -1,0 +1,9 @@
+from django import forms
+
+from .models import Performance
+
+
+class PerformanceForm(forms.ModelForm):
+    class Meta:
+        model = Performance
+        fields = ['id_student', 'id_subject', 'Exam', 'Zachet']

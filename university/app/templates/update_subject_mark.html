@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'form_styles.css' %}" type="text/css">
+    <title>Добавить успеваемость</title>
+
+</head>
+<body>
+<h1>Обновить успеваемость</h1>
+<div class="form-container">
+    <h2>Обновить успеваемость</h2>
+    <form method="post" action="{% url 'update_subject_mark' subject.id %}">
+        {% csrf_token %}
+
+        <label for="subject_name">Название предмета:</label>
+        <input type="text" id="subject_name" name="subject_name" value="{{ subject.id_subject }}" required>
+
+        <label for="exam_mark">Оценка за экзамен:</label>
+        <input type="number" id="exam_mark" name="exam_mark" value="{{ subject.Exam }}" min="1" max="5">
+
+        <label for="credit_mark">Оценка за зачет:</label>
+        <input type="text" id="credit_mark" name="credit_mark" value="{{ subject.Zachet }}">
+
+        <button type="submit">Обновить</button>
+    </form>
+</div>
+</body>
+</html>

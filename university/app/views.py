@@ -1,8 +1,9 @@
 from collections import defaultdict
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import PersonalInfo, Department, TeacherSubject, Group
+from .forms import PerformanceForm
+from .models import PersonalInfo, Department, TeacherSubject, Group, Subject, Performance
 
 
 def index(request):
@@ -51,9 +52,41 @@ def students(request):
     return render(request, 'students.html', {'groups': groups})
 
 
-def put_exam(request):
-    pass
+def add_subject_mark(request):
+    if request.method == 'POST':
+        form = PerformanceForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = PerformanceForm()
+
+    return render(request, 'add_performance.html', {'form': form})
 
 
-def put_credit(request):
-    pass
+def input_subject_id(request):
+    if request.method == 'POST':
+        subject_id = request.POST.get('subject_id')
+        return redirect('update_subject_mark', subject_id=subject_id)
+
+    return render(request, 'input_subject_id.html')
+
+
+def update_subject_mark(request, subject_id):
+    subject = get_object_or_404(Performance, id=subject_id)
+
+    if request.method == 'POST':
+        exam = request.POST.get('exam_mark')
+        credit = request.POST.get('credit_mark')
+
+        if exam:
+            subject.Exam = exam
+        if credit:
+            subject.Zachet = credit
+
+        subject.save()
+
+    context = {
+        'subject': subject
+    }
+    return render(request, 'update_subject_mark.html', context)
