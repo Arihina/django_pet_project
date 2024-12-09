@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css">
+    <title>Студенты</title>
+    <style>
+        body {background:#5f2c82}
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<h1>Студенты по направлениям</h1>
+
+{% for direction, item in directions.items %}
+    <h2>{{ direction }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Пол</th>
+                <th>Дата рождения</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for i in item %}
+                    <tr>
+                        <td>{{ i.full_name }}</td>
+                        <td>{{ i.Gender }}</td>
+                        <td>{{ i.Birthday }}</td>
+                        <td>{{ i.Phone_number }}</td>
+                        <td>{{ i.Address }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+</body>
+</html>

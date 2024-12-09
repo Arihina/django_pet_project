@@ -33,6 +33,9 @@ class PersonalInfo(models.Model):
     def __str__(self):
         return self.full_name
 
+    def get_direction_long_name(self):
+        return self.id_group.id_direction.Long_name if self.id_group and self.id_group.id_direction else None
+
 
 class Direction(models.Model):
     id = models.AutoField(primary_key=True)

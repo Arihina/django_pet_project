@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <title>Перподаватели</title>
+    <style>.button {display: inline-block;padding: 10px 20px;
+    margin: 5px;background-color: rgba(255, 255, 255, 0.3);
+    color: white;text-align: center;text-decoration: none;
+    border: none;border-radius: 5px;
+    transition: background-color 0.3s;}
+    .button:hover {
+    background-color: rgba(255, 255, 255, 0.5);}
+    .button-container {display: grid;grid-template-columns: 1fr;
+    justify-items: center;margin-top: 20px;}
+        body {background: #49a09d}
+    </style>
+</head>
+<body>
+<h1>Меню</h1>
+<div class="button-container">
+    <a href="{% url 'groups' %}" class="button">Студенты и направления</a>
+    <a href="{% url 'departments' %}" class="button">Группы и кафедры</a>
+</div>
+</body>
+</html>
