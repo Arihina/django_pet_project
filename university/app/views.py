@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PerformanceForm, SearchForm, InfoForm
+from .forms import PerformanceForm, SearchForm, InfoForm, TeacherForm, SubjectForm
 from .models import PersonalInfo, Department, TeacherSubject, Group, Performance, Parents
 
 
@@ -145,8 +145,34 @@ def add_personal_info(request):
                 id_group=form.cleaned_data['id_group']
             )
 
-
     else:
         form = InfoForm()
 
     return render(request, 'add_personal_info.html', {'form': form})
+
+
+def add_teacher(request):
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            teacher = form.save()
+            subjects = form.cleaned_data['subjects']
+
+            for subject in subjects:
+                TeacherSubject.objects.create(id_teacher=teacher, id_subject=subject)
+
+    else:
+        form = TeacherForm()
+
+    return render(request, 'add_teacher.html', {'form': form})
+
+
+def add_subject(request):
+    if request.method == 'POST':
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = SubjectForm()
+
+    return render(request, 'add_subject.html', {'form': form})

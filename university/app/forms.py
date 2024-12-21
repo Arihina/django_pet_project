@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Performance, Group
+from .models import Performance, Group, Teacher, Subject
 
 
 class PerformanceForm(forms.ModelForm):
@@ -28,3 +28,28 @@ class InfoForm(forms.Form):
     phone_number = forms.CharField(label='Телефон Студента', max_length=255)
     address = forms.CharField(label='Адрес', max_length=255)
     id_group = forms.ModelChoiceField(queryset=Group.objects.all(), label='Группа')
+
+
+class TeacherForm(forms.ModelForm):
+    subjects = forms.ModelMultipleChoiceField(
+        queryset=Subject.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label='Предметы'
+    )
+
+    class Meta:
+        model = Teacher
+        fields = ['full_name', 'Phone_number', 'subjects']
+        labels = {
+            'full_name': 'ФИО Преподавателя',
+            'Phone_number': 'Телефон Преподавателя',
+        }
+
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name']
+        labels = {
+            'name': 'Название Предмета',
+        }
