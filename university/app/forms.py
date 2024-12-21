@@ -9,6 +9,11 @@ class PerformanceForm(forms.ModelForm):
         fields = ['id_student', 'id_subject', 'Exam', 'Zachet']
 
 
+class NewPerformanceForm(forms.Form):
+    group = forms.ModelChoiceField(queryset=Group.objects.all(), label="Выберите группу")
+    subject = forms.ModelChoiceField(queryset=Subject.objects.all(), label="Выберите предмет")
+
+
 class SearchForm(forms.Form):
     full_name = forms.CharField(max_length=255, required=False, label='Полное имя')
     gender = forms.ChoiceField(choices=[

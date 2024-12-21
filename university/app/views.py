@@ -2,8 +2,8 @@ from collections import defaultdict
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PerformanceForm, SearchForm, InfoForm, TeacherForm, SubjectForm, GroupForm, StudentPerformanceForm
-from .models import PersonalInfo, Department, TeacherSubject, Group, Performance, Parents
+from .forms import SearchForm, InfoForm, TeacherForm, SubjectForm, GroupForm, StudentPerformanceForm, NewPerformanceForm
+from .models import PersonalInfo, Department, TeacherSubject, Group, Performance, Parents, Subject
 
 
 def index(request):
@@ -53,15 +53,44 @@ def students(request):
 
 
 def add_subject_mark(request):
+    form = NewPerformanceForm()
+    students = None
     if request.method == 'POST':
-        form = PerformanceForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if 'save_performance' in request.POST:
+            subject = Subject.objects.get(id=request.POST['subject'])
+            for student_id in request.POST.getlist('student_ids'):
+                zachet = request.POST.get(f'zachet_{student_id}', '')
+                exam = request.POST.get(f'exam_{student_id}', '')
 
-    else:
-        form = PerformanceForm()
+                student = PersonalInfo.objects.get(id=student_id)
 
-    return render(request, 'add_performance.html', {'form': form})
+                Performance.objects.update_or_create(
+                    id_student=student,
+                    id_subject=subject,
+                    defaults={
+                        'Zachet': zachet if zachet else None,
+                        'Exam': exam if exam else None
+                    }
+                )
+        elif 'group' in request.POST and 'subject' in request.POST:
+            group_id = request.POST['group']
+            subject_id = request.POST['subject']
+            group = Group.objects.get(id=group_id)
+            subject = Subject.objects.get(id=subject_id)
+
+            students = PersonalInfo.objects.filter(id_group=group)
+
+            form = NewPerformanceForm(initial={'group': group,
+                                               'subject': subject})
+
+            return render(request, 'set_performance.html', {
+                'form': form,
+                'students': students,
+                'subject': subject,
+                'group': group
+            })
+
+    return render(request, 'set_performance.html', {'form': form, 'students': students})
 
 
 def input_subject_id(request):
