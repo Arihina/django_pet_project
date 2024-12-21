@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PerformanceForm, SearchForm, InfoForm, TeacherForm, SubjectForm, GroupForm
+from .forms import PerformanceForm, SearchForm, InfoForm, TeacherForm, SubjectForm, GroupForm, StudentPerformanceForm
 from .models import PersonalInfo, Department, TeacherSubject, Group, Performance, Parents
 
 
@@ -214,3 +214,19 @@ def login_dec(request):
 
 def dean(request):
     return render(request, 'dean_menu.html')
+
+
+def personal_performance(request):
+    form = StudentPerformanceForm()
+    performances = None
+
+    if request.method == 'POST':
+        form = StudentPerformanceForm(request.POST)
+        if form.is_valid():
+            student_id = form.cleaned_data['student_id']
+            try:
+                performances = Performance.objects.filter(id_student__id=student_id)
+            except PersonalInfo.DoesNotExist:
+                performances = None
+
+    return render(request, 'performance_info.html', {'form': form, 'performances': performances})

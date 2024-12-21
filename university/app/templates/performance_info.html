@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <style>
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;text-align: center;}
+h3 {color: #fff;text-align: center;margin-bottom: 20px;}
+    </style>
+    <title>Успеваемость студента</title>
+</head>
+<body>
+<h1>Проверка успеваемости студента</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Показать успеваемость</button>
+</form>
+
+{% if performances %}
+<h2>Успеваемость:</h2>
+<ul>
+    {% for performance in performances %}
+    <li>Предмет: {{ performance.id_subject }} - Экзамен: {{ performance.Exam }} - Зачет: {{ performance.Zachet }}</li>
+    {% endfor %}
+</ul>
+{% elif performances is not None %}
+<p>Успеваемость не найдена.</p>
+{% endif %}
+</body>
+</html>

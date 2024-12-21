@@ -69,3 +69,7 @@ class GroupForm(forms.ModelForm):
         super(GroupForm, self).__init__(*args, **kwargs)
         self.fields['id_direction'].queryset = Direction.objects.all()
         self.fields['id_department'].queryset = Department.objects.all()
+
+
+class StudentPerformanceForm(forms.Form):
+    student_id = forms.IntegerField(label='ID студента', min_value=1)

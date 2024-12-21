@@ -24,4 +24,5 @@ urlpatterns = [
     path('personal_info_list/', views.personal_info_list, name='personal_info_list'),
     path('login_dec/', views.login_dec, name='login_dec'),
     path('dean/', views.dean, name='dean'),
+    path('personal_performance/', views.personal_performance, name='personal_performance'),
 ]
