@@ -197,3 +197,20 @@ def group_list(request):
 def personal_info_list(request):
     personal_info = PersonalInfo.objects.all()
     return render(request, 'personal_info_list.html', {'personal_info': personal_info})
+
+
+def login_dec(request):
+    if request.method == 'POST':
+        password = request.POST.get('password')
+
+        if password == 'admin':
+            return redirect('dean')
+        else:
+            error_message = "Неверный пароль"
+            return render(request, 'password_check.html', {'error_message': error_message})
+
+    return render(request, 'entrance.html')
+
+
+def dean(request):
+    return render(request, 'dean_menu.html')
