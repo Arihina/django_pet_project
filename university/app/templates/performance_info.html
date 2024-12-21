@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'form_styles.css' %}" type="text/css">
     <style>
         table {
   display: table;
@@ -23,19 +23,29 @@ h3 {color: #fff;text-align: center;margin-bottom: 20px;}
 </head>
 <body>
 <h1>Проверка успеваемости студента</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Показать успеваемость</button>
-</form>
-
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Показать успеваемость</button>
+    </form>
+</div>
 {% if performances %}
 <h2>Успеваемость:</h2>
-<ul>
+<table>
+    <tr>
+        <th>Предмет</th>
+        <th>Экзамен</th>
+        <th>Зачет</th>
+    </tr>
     {% for performance in performances %}
-    <li>Предмет: {{ performance.id_subject }} - Экзамен: {{ performance.Exam }} - Зачет: {{ performance.Zachet }}</li>
+    <tr>
+        <td>{{ performance.id_subject }}</td>
+        <td>{{ performance.Exam }}</td>
+        <td>{{ performance.Zachet }}</td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 {% elif performances is not None %}
 <p>Успеваемость не найдена.</p>
 {% endif %}
