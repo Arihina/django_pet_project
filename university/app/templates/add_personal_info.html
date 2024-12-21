@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'form_styles.css' %}" type="text/css">
+    <title>Добавить личную информацию</title>
+</head>
+<body>
+<h1>Добавить личную информацию</h1>
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>Информация о родителе</h2>
+        {{ form.parent_full_name.label_tag }} {{ form.parent_full_name }}<br>
+        {{ form.parent_phone_number.label_tag }} {{ form.parent_phone_number }}<br>
+
+        <h2>Личная информация о студенте</h2>
+        {{ form.personal_full_name.label_tag }} {{ form.personal_full_name }}<br>
+        {{ form.gender.label_tag }} {{ form.gender }}<br>
+        {{ form.birthday.label_tag }} {{ form.birthday }}<br>
+        {{ form.phone_number.label_tag }} {{ form.phone_number }}<br>
+        {{ form.address.label_tag }} {{ form.address }}<br>
+        {{ form.id_group.label_tag }} {{ form.id_group }}<br>
+
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+</body>
+</html>

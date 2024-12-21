@@ -14,4 +14,5 @@ urlpatterns = [
     path('upd-subjects-mark/<int:subject_id>/', views.update_subject_mark, name='update_subject_mark'),
     path('search-personal-info/', views.search_personal_info, name='search_personal_info'),
     path('login/', views.entrance, name='login'),
+    path('add_personal_info/', views.add_personal_info, name='add_personal_info'),
 ]

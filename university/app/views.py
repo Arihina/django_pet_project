@@ -2,8 +2,8 @@ from collections import defaultdict
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PerformanceForm, SearchForm
-from .models import PersonalInfo, Department, TeacherSubject, Group, Performance
+from .forms import PerformanceForm, SearchForm, InfoForm
+from .models import PersonalInfo, Department, TeacherSubject, Group, Performance, Parents
 
 
 def index(request):
@@ -123,3 +123,30 @@ def entrance(request):
             return render(request, 'password_check.html', {'error_message': error_message})
 
     return render(request, 'entrance.html')
+
+
+def add_personal_info(request):
+    if request.method == 'POST':
+        form = InfoForm(request.POST)
+
+        if form.is_valid():
+            parent = Parents.objects.create(
+                full_name=form.cleaned_data['parent_full_name'],
+                Phone_number=form.cleaned_data['parent_phone_number']
+            )
+
+            PersonalInfo.objects.create(
+                full_name=form.cleaned_data['personal_full_name'],
+                Gender=form.cleaned_data['gender'],
+                Birthday=form.cleaned_data['birthday'],
+                Phone_number=form.cleaned_data['phone_number'],
+                Address=form.cleaned_data['address'],
+                id_parent=parent,
+                id_group=form.cleaned_data['id_group']
+            )
+
+
+    else:
+        form = InfoForm()
+
+    return render(request, 'add_personal_info.html', {'form': form})
