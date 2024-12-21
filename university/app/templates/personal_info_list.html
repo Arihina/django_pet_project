@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css">
+    <title>Список Личной Информации</title>
+            <style>
+        body {background:#5f2c82}
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<h1>Список Личной Информации</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Пол</th>
+            <th>Дата Рождения</th>
+            <th>Телефон</th>
+            <th>Адрес</th>
+            <th>Родитель</th>
+            <th>Группа</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for info in personal_info %}
+        <tr>
+            <td>{{ info.id }}</td>
+            <td>{{ info.full_name }}</td>
+            <td>{{ info.Gender }}</td>
+            <td>{{ info.Birthday }}</td>
+            <td>{{ info.Phone_number }}</td>
+            <td>{{ info.Address }}</td>
+            <td>{{ info.id_parent }}</td>
+            <td>{{ info.id_group }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

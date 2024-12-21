@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css">
+    <title>Список Групп</title>
+        <style>
+        body {background:#5f2c82}
+        table {
+  display: table;
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+th,td {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<h1>Список Групп</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Кафедра</th>
+        <th>Направление</th>
+        <th>Год</th>
+        <th>Форма</th>
+        <th>Степень</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for group in groups %}
+    <tr>
+        <td>{{ group.id }}</td>
+        <td>{{ group.id_department }}</td>
+        <td>{{ group.id_direction }}</td>
+        <td>{{ group.Year }}</td>
+        <td>{{ group.Form }}</td>
+        <td>{{ group.Degree }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

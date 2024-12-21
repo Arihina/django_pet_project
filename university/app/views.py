@@ -187,3 +187,13 @@ def add_group(request):
         form = GroupForm()
 
     return render(request, 'add_group.html', {'form': form})
+
+
+def group_list(request):
+    groups = Group.objects.all()
+    return render(request, 'group_list.html', {'groups': groups})
+
+
+def personal_info_list(request):
+    personal_info = PersonalInfo.objects.all()
+    return render(request, 'personal_info_list.html', {'personal_info': personal_info})
