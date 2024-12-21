@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Performance, Group, Teacher, Subject
+from .models import Performance, Group, Teacher, Subject, Department, Direction
 
 
 class PerformanceForm(forms.ModelForm):
@@ -53,3 +53,19 @@ class SubjectForm(forms.ModelForm):
         labels = {
             'name': 'Название Предмета',
         }
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['id_direction', 'id_department', 'Year', 'Form', 'Degree']
+        widgets = {
+            'Year': forms.NumberInput(attrs={'min': 2000, 'max': 2100}),
+            'Form': forms.TextInput(attrs={'placeholder': 'Например, Очная'}),
+            'Degree': forms.TextInput(attrs={'placeholder': 'Например, Бакалавриат'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(GroupForm, self).__init__(*args, **kwargs)
+        self.fields['id_direction'].queryset = Direction.objects.all()
+        self.fields['id_department'].queryset = Department.objects.all()

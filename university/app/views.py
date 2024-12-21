@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PerformanceForm, SearchForm, InfoForm, TeacherForm, SubjectForm
+from .forms import PerformanceForm, SearchForm, InfoForm, TeacherForm, SubjectForm, GroupForm
 from .models import PersonalInfo, Department, TeacherSubject, Group, Performance, Parents
 
 
@@ -176,3 +176,14 @@ def add_subject(request):
         form = SubjectForm()
 
     return render(request, 'add_subject.html', {'form': form})
+
+
+def add_group(request):
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = GroupForm()
+
+    return render(request, 'add_group.html', {'form': form})
